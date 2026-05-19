@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Creator's Quiz | Beyond the Spark</title>
+<meta name="description" content="A free 20-question self-assessment from Beyond the Spark by Lasbrey Nwachukwu. Discover whether you are an Originator, Extender, or Multiplier — and how to do your best creative work.">
+
+<!-- Open Graph for social shares -->
+<meta property="og:title" content="The Creator's Quiz">
+<meta property="og:description" content="Every idea needs three kinds of people. Discover yours.">
+<meta property="og:type" content="website">
+
+<style>
+  /* ---------- Reset + base ---------- */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg-deep: #0c1220;
+    --bg-mid: #141c30;
+    --bg-card: #1c2540;
+    --bg-card-hover: #243054;
+    --ink: #f5f0e6;
+    --ink-dim: #b0a896;
+    --gold: #f2bc5b;
+    --gold-bright: #ffd884;
+    --gold-soft: rgba(242, 188, 91, 0.15);
+    --shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+    --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.45);
+    --radius: 12px;
+    --serif: 'Iowan Old Style', 'Palatino Linotype', Palatino, 'Book Antiqua', Georgia, serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  }
+
+  body {
+    font-family: var(--serif);
+    background: linear-gradient(180deg, var(--bg-deep) 0%, #08101e 100%);
+    color: var(--ink);
+    min-height: 100vh;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 24px 64px;
+  }
+
+  /* ---------- Header ---------- */
+  header { text-align: center; padding-top: 24px; }
+  header .book-mark {
+    font-family: var(--sans);
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    margin-bottom: 8px;
+  }
+  header h1 {
+    font-size: clamp(2rem, 6vw, 3rem);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-bottom: 8px;
+  }
+  header h1 .gold { color: var(--gold); }
+  header .tag {
+    font-style: italic;
+    color: var(--ink-dim);
+    font-size: 1.05rem;
+    margin-bottom: 32px;
+  }
+  header .rule {
+    width: 80px;
+    height: 2px;
+    background: var(--gold);
+    margin: 24px auto;
+    border-radius: 2px;
+  }
+
+  /* ---------- Intro screen ---------- */
+  .intro-card {
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    padding: 32px 28px;
+    box-shadow: var(--shadow);
+    margin-bottom: 24px;
+  }
+  .intro-card p { margin-bottom: 16px; color: var(--ink); }
+  .intro-card p:last-of-type { margin-bottom: 24px; }
+  .intro-card .meta {
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    color: var(--ink-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 16px;
+  }
+
+  button.primary {
+    font-family: var(--sans);
+    background: var(--gold);
+    color: var(--bg-deep);
+    border: none;
+    padding: 16px 32px;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: background 0.15s ease, transform 0.15s ease;
+    width: 100%;
+    display: block;
+  }
+  button.primary:hover { background: var(--gold-bright); transform: translateY(-1px); }
+  button.primary:active { transform: translateY(0); }
+
+  button.secondary {
+    background: transparent;
+    color: var(--ink-dim);
+    border: 1px solid var(--ink-dim);
+    padding: 12px 20px;
+    font-family: var(--sans);
+    font-size: 0.9rem;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  button.secondary:hover { color: var(--ink); border-color: var(--ink); }
+
+  /* ---------- Progress bar ---------- */
+  .progress-wrap {
+    margin-bottom: 32px;
+  }
+  .progress-label {
+    font-family: var(--sans);
+    font-size: 0.8rem;
+    color: var(--ink-dim);
+    text-align: center;
+    margin-bottom: 8px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .progress-track {
+    height: 4px;
+    background: rgba(245, 240, 230, 0.1);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--gold);
+    border-radius: 2px;
+    transition: width 0.3s ease;
+  }
+
+  /* ---------- Question screen ---------- */
+  .question-screen { animation: fadeIn 0.3s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  .question-prompt {
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    text-align: center;
+    margin-bottom: 12px;
+  }
+  .question-text {
+    font-size: 1.25rem;
+    text-align: center;
+    margin-bottom: 32px;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+
+  .option-card {
+    background: var(--bg-card);
+    border: 2px solid transparent;
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+    width: 100%;
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: 1.05rem;
+    line-height: 1.5;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .option-card:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--gold-soft);
+    transform: translateX(2px);
+  }
+  .option-card:focus {
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+  }
+  .option-letter {
+    font-family: var(--sans);
+    font-weight: 700;
+    color: var(--gold);
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    border: 2px solid var(--gold);
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  }
+  .option-text { flex: 1; }
+
+  .nav-row {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 24px;
+  }
+  .nav-row .spacer { flex: 1; }
+
+  /* ---------- Result screen ---------- */
+  .result-screen { animation: fadeIn 0.4s ease; }
+  .result-screen h2 {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 8px;
+  }
+  .result-screen .your-role {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .result-screen .primary-tag {
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    margin-bottom: 8px;
+  }
+  .result-screen .role-name {
+    font-size: clamp(2.5rem, 8vw, 4rem);
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1.1;
+    margin-bottom: 8px;
+  }
+  .result-screen .secondary {
+    color: var(--ink-dim);
+    font-style: italic;
+  }
+  .result-screen .secondary strong { color: var(--ink); font-weight: 600; font-style: normal; }
+
+  /* Score bars */
+  .scores {
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    padding: 28px;
+    margin-bottom: 24px;
+    box-shadow: var(--shadow);
+  }
+  .score-row {
+    margin-bottom: 18px;
+  }
+  .score-row:last-child { margin-bottom: 0; }
+  .score-label {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--sans);
+    margin-bottom: 6px;
+    font-size: 0.95rem;
+  }
+  .score-label .name { font-weight: 600; }
+  .score-label .pct { color: var(--gold); font-weight: 700; }
+  .score-track {
+    height: 12px;
+    background: rgba(245, 240, 230, 0.1);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .score-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold) 0%, var(--gold-bright) 100%);
+    border-radius: 6px;
+    transition: width 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .score-fill.dim {
+    background: rgba(245, 240, 230, 0.25);
+  }
+
+  /* Interpretation */
+  .interpretation {
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    padding: 28px;
+    margin-bottom: 24px;
+    box-shadow: var(--shadow);
+  }
+  .interpretation h3 {
+    font-size: 0.85rem;
+    font-family: var(--sans);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .interpretation p { margin-bottom: 16px; }
+  .interpretation p:last-child { margin-bottom: 0; }
+  .interpretation .step {
+    background: var(--gold-soft);
+    border-left: 3px solid var(--gold);
+    padding: 16px 20px;
+    border-radius: 4px;
+    margin-top: 16px;
+  }
+
+  /* Email capture */
+  .capture {
+    background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-mid) 100%);
+    border-radius: var(--radius);
+    padding: 28px;
+    margin-bottom: 24px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--gold-soft);
+  }
+  .capture h3 { font-size: 1.4rem; margin-bottom: 8px; }
+  .capture p { color: var(--ink-dim); margin-bottom: 20px; font-size: 0.95rem; }
+  .capture-form {
+    display: flex;
+    gap: 8px;
+    max-width: 420px;
+    margin: 0 auto;
+  }
+  .capture-form input {
+    flex: 1;
+    padding: 14px 16px;
+    border-radius: 8px;
+    border: 1px solid rgba(245, 240, 230, 0.2);
+    background: var(--bg-deep);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 0.95rem;
+  }
+  .capture-form input:focus { outline: 2px solid var(--gold); }
+  .capture-form button {
+    padding: 14px 20px;
+    background: var(--gold);
+    color: var(--bg-deep);
+    border: none;
+    border-radius: 8px;
+    font-family: var(--sans);
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .capture-form button:hover { background: var(--gold-bright); }
+
+  /* CTA card */
+  .cta-card {
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    padding: 28px;
+    text-align: center;
+    box-shadow: var(--shadow);
+  }
+  .cta-card h3 { font-size: 1.4rem; margin-bottom: 8px; }
+  .cta-card p { color: var(--ink-dim); margin-bottom: 20px; }
+
+  /* Share row */
+  .share-row {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 16px;
+    flex-wrap: wrap;
+  }
+  .share-btn {
+    padding: 10px 18px;
+    background: transparent;
+    color: var(--ink-dim);
+    border: 1px solid var(--ink-dim);
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    text-decoration: none;
+    transition: all 0.15s;
+  }
+  .share-btn:hover { color: var(--gold); border-color: var(--gold); }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 32px 24px;
+    color: var(--ink-dim);
+    font-size: 0.85rem;
+    font-family: var(--sans);
+  }
+
+  /* Mobile tweaks */
+  @media (max-width: 480px) {
+    .container { padding: 20px 16px 48px; }
+    .intro-card, .scores, .interpretation, .capture, .cta-card { padding: 20px; }
+    .question-text { font-size: 1.1rem; }
+    .option-card { padding: 18px; font-size: 1rem; }
+    .capture-form { flex-direction: column; }
+  }
+
+  /* Hidden state */
+  .hidden { display: none !important; }
+</style>
+</head>
+
+<body>
+<div class="container">
+
+  <header>
+    <div class="book-mark">From the book</div>
+    <h1>The <span class="gold">Creator's</span> Quiz</h1>
+    <div class="rule"></div>
+    <p class="tag">Every idea needs three kinds of people. Discover yours.</p>
+  </header>
+
+  <!-- ============ INTRO ============ -->
+  <section id="intro" class="intro-card">
+    <div class="meta">A free self-assessment</div>
+    <p>There are three kinds of creators in every act of creation. The <strong>Originator</strong>, who imagines what does not yet exist. The <strong>Extender</strong>, who makes the imagined real. The <strong>Multiplier</strong>, who sees what else the real thing could become.</p>
+    <p>Most of us are exceptional at one of the three roles and decent at one other. The trouble is, almost nobody has ever taught us to see this clearly. The quiz that follows will.</p>
+    <p>Twenty questions. Roughly ten minutes. For each question, pick the statement that is <em>more true of you</em> — even if neither feels perfectly accurate. Trust your first instinct.</p>
+    <button class="primary" onclick="startQuiz()">Begin the quiz</button>
+  </section>
+
+  <!-- ============ QUIZ ============ -->
+  <section id="quiz" class="hidden">
+    <div class="progress-wrap">
+      <div class="progress-label">Question <span id="qNum">1</span> of 20</div>
+      <div class="progress-track"><div class="progress-fill" id="progressFill" style="width: 5%"></div></div>
+    </div>
+    <div class="question-screen" id="questionScreen">
+      <div class="question-prompt">Which is more true of you?</div>
+      <div class="question-text" id="questionText"></div>
+      <button class="option-card" id="optionA" onclick="answerQuestion('A')">
+        <span class="option-letter">A</span>
+        <span class="option-text" id="optionAText"></span>
+      </button>
+      <button class="option-card" id="optionB" onclick="answerQuestion('B')">
+        <span class="option-letter">B</span>
+        <span class="option-text" id="optionBText"></span>
+      </button>
+      <div class="nav-row">
+        <button class="secondary" id="backBtn" onclick="goBack()">← Back</button>
+        <div class="spacer"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ RESULT ============ -->
+  <section id="result" class="hidden">
+    <div class="result-screen">
+      <div class="your-role">
+        <div class="primary-tag">Your primary role</div>
+        <div class="role-name" id="primaryRoleName">—</div>
+        <div class="secondary">Secondary strength: <strong id="secondaryRoleName">—</strong></div>
+      </div>
+
+      <div class="scores">
+        <div class="score-row">
+          <div class="score-label"><span class="name">Originator</span><span class="pct" id="pctO">0%</span></div>
+          <div class="score-track"><div class="score-fill" id="barO" style="width: 0%"></div></div>
+        </div>
+        <div class="score-row">
+          <div class="score-label"><span class="name">Extender</span><span class="pct" id="pctE">0%</span></div>
+          <div class="score-track"><div class="score-fill" id="barE" style="width: 0%"></div></div>
+        </div>
+        <div class="score-row">
+          <div class="score-label"><span class="name">Multiplier</span><span class="pct" id="pctM">0%</span></div>
+          <div class="score-track"><div class="score-fill" id="barM" style="width: 0%"></div></div>
+        </div>
+      </div>
+
+      <div class="interpretation" id="interpretation">
+        <!-- Populated by JS -->
+      </div>
+
+      <div class="capture">
+        <h3>Get your full profile by email</h3>
+        <p>Plus a free 7-day course on doing your best work as your primary role.</p>
+        <form class="capture-form" onsubmit="captureEmail(event)">
+          <input type="email" name="email" placeholder="you@example.com" required>
+          <button type="submit">Send it</button>
+        </form>
+        <p id="captureNote" style="margin-top:12px;font-size:0.8rem;"></p>
+      </div>
+
+      <div class="cta-card">
+        <h3>Want the full framework?</h3>
+        <p>The quiz is one chapter of a longer book. <em>Beyond the Spark</em> walks through all three roles, the dilemmas each one faces, and how to find your place in the cycle of creativity.</p>
+        <a class="share-btn" style="background:var(--gold);color:var(--bg-deep);border:none;font-weight:700;padding:14px 24px;" href="https://www.amazon.com/dp/" target="_blank">Get the book on Amazon →</a>
+        <div class="share-row">
+          <a class="share-btn" href="#" onclick="shareTwitter(event)">Share on X</a>
+          <a class="share-btn" href="#" onclick="shareLinkedIn(event)">Share on LinkedIn</a>
+          <a class="share-btn" href="#" onclick="copyLink(event)" id="copyBtn">Copy link</a>
+        </div>
+      </div>
+
+      <div style="text-align:center;margin-top:24px;">
+        <button class="secondary" onclick="restartQuiz()">Take the quiz again</button>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  © 2026 Lasbrey Nwachukwu · <em>Beyond the Spark</em>
+</footer>
+
+<script>
+// ===================== DATA =====================
+const questions = [
+  // Part 1: O vs E (A=O, B=E)
+  {text:"Which is more true of you?", a:"I get my best ideas in the shower or on long walks, away from the work itself.", b:"I get my best ideas while I'm in the middle of building something.", scores:{A:"O", B:"E"}},
+  {text:"Which is more true of you?", a:"The most exciting moment in any project is when I first imagine what could be.", b:"The most exciting moment is when the thing I've been building finally works.", scores:{A:"O", B:"E"}},
+  {text:"Which is more true of you?", a:"I sometimes drop projects once the basic idea is clear, even if the work isn't done.", b:"I sometimes get stuck perfecting things that other people would have called finished weeks ago.", scores:{A:"O", B:"E"}},
+  {text:"Which is more true of you?", a:"People come to me when they need a fresh perspective on what to do.", b:"People come to me when they need someone who will actually get it done.", scores:{A:"O", B:"E"}},
+  {text:"Which is more true of you?", a:"Long brainstorming sessions energize me.", b:"Long brainstorming sessions exhaust me; I want to stop talking and start building.", scores:{A:"O", B:"E"}},
+  {text:"Which is more true of you?", a:"I would rather sketch ten different versions of a thing than fully build one.", b:"I would rather fully build one version than sketch ten.", scores:{A:"O", B:"E"}},
+  {text:"Which is more true of you?", a:"I feel most creative when I'm staring at an empty page or a blank whiteboard.", b:"I feel most creative when I'm solving the real constraints of an implementation.", scores:{A:"O", B:"E"}},
+  // Part 2: O vs M (A=O, B=M)
+  {text:"Which is more true of you?", a:"I prefer to imagine entirely new things.", b:"I prefer to find new uses for things that already exist.", scores:{A:"O", B:"M"}},
+  {text:"Which is more true of you?", a:"I am the kind of person who starts new projects.", b:"I am the kind of person who sees what could be done with projects already underway.", scores:{A:"O", B:"M"}},
+  {text:"Which is more true of you?", a:"When I read a great book, I want to write something completely different from it.", b:"When I read a great book, I see ten ways its ideas could be applied to fields it didn't address.", scores:{A:"O", B:"M"}},
+  {text:"Which is more true of you?", a:"My strongest contribution is bringing new things into existence.", b:"My strongest contribution is taking existing things further than their creators imagined.", scores:{A:"O", B:"M"}},
+  {text:"Which is more true of you?", a:"I am drawn to blank canvases.", b:"I am drawn to finished works that I think could be reshaped or repurposed.", scores:{A:"O", B:"M"}},
+  {text:"Which is more true of you?", a:"I get bored when the territory is too well-mapped.", b:"I get bored when nothing has been built yet; I need something to work with.", scores:{A:"O", B:"M"}},
+  {text:"Which is more true of you?", a:"People describe my mind as generative — I produce.", b:"People describe my mind as connective — I see how things relate.", scores:{A:"O", B:"M"}},
+  // Part 3: E vs M (A=E, B=M)
+  {text:"Which is more true of you?", a:"I would rather perfect one version of something than launch five variations.", b:"I would rather launch five variations and learn which works than perfect one.", scores:{A:"E", B:"M"}},
+  {text:"Which is more true of you?", a:"My best work happens within a clearly defined scope.", b:"My best work happens when I am allowed to expand the scope beyond what was originally asked.", scores:{A:"E", B:"M"}},
+  {text:"Which is more true of you?", a:"I have unusual patience for refining details.", b:"I have unusual instinct for spotting what an existing thing could become.", scores:{A:"E", B:"M"}},
+  {text:"Which is more true of you?", a:"The completion of something is more satisfying to me than its expansion.", b:"The expansion of something is more satisfying to me than its completion.", scores:{A:"E", B:"M"}},
+  {text:"Which is more true of you?", a:"People trust me to deliver what was promised.", b:"People trust me to find more value in what already exists.", scores:{A:"E", B:"M"}},
+  {text:"Which is more true of you?", a:"I light up when I solve a hard execution problem.", b:"I light up when I find a use for something no one anticipated.", scores:{A:"E", B:"M"}}
+];
+
+const roleNames = { O: "Originator", E: "Extender", M: "Multiplier" };
+
+// Interpretations: keyed by "PRIMARY_SECONDARY"
+const interpretations = {
+  "O_E": {
+    gift: "Vision that survives contact with reality. You do not abandon your ideas the moment they get hard.",
+    dilemma: "You do not know when to stop being the builder of your own visions. You will likely burn out trying to scale what you originated.",
+    step: "Identify one project where you are currently doing Extender work that someone else would do better. Hand it off."
+  },
+  "O_M": {
+    gift: "The ability to imagine forward and sideways at the same time. You think in possibility space.",
+    dilemma: "You tend to be impatient with the patient daily craft of execution. You may have a long list of imagined ventures and a short list of finished ones.",
+    step: "Identify the project you are currently most excited about. Commit to a single Extender — internal hire, co-founder, or vendor — whose job is to actually finish it. Then stop interfering."
+  },
+  "E_O": {
+    gift: "Craft grounded in deep understanding of what is actually possible.",
+    dilemma: "You may have spent so long translating other people's visions that you have stopped recognizing your own. You have come to think of reliability as your ceiling.",
+    step: "In the next thirty days, name one thing you would build if no one were asking you to build anything. Sketch it. Show it to one person you trust. See what happens."
+  },
+  "E_M": {
+    gift: "The ability to build something deliberately so that it can become more than the brief asked for.",
+    dilemma: "You may chafe under tight scope. You see the larger possibility and the limited mandate at the same time.",
+    step: "In your current project, identify one expansion of scope you have been quietly sitting on. Pitch it to the person who controls the scope. Frame it as creating new value rather than as wandering off task."
+  },
+  "M_O": {
+    gift: "Sideways imagination paired with enough originating capacity that you are never empty.",
+    dilemma: "You may have trouble staying inside a single role long enough to do it well. You leave projects, companies, and ideas behind once you have multiplied them; you keep wanting the next one.",
+    step: "Pick one platform — a job, a project, a company, a creative practice — and commit to multiplying it as far as it can go before moving on. Do this once and notice what it teaches you."
+  },
+  "M_E": {
+    gift: "The ability to expand a finished thing while still respecting the discipline of what it actually is.",
+    dilemma: "Because you are competent at executing your own expansions, you may try to do too many at once. Your weakness is not lack of execution; it is lack of focus.",
+    step: "Of all the expansion opportunities currently in front of you, choose the one that, if multiplied well, would change your work the most. Stop the others. Pour your craft into the one."
+  },
+  "BALANCED": {
+    gift: "Flexibility. You can shift between roles depending on what the project needs from you.",
+    dilemma: "You may have trouble committing. You may also be tempted, more than most people, into the trap of trying to do all three roles yourself.",
+    step: "For your current most important project, write down which role you have decided to play — and stick with it. Identify partners to play the other two."
+  }
+};
+
+// ===================== STATE =====================
+let currentQuestion = 0;
+let answers = [];
+let scores = { O: 0, E: 0, M: 0 };
+
+// ===================== FLOW =====================
+function startQuiz() {
+  document.getElementById('intro').classList.add('hidden');
+  document.getElementById('quiz').classList.remove('hidden');
+  currentQuestion = 0;
+  answers = [];
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const q = questions[currentQuestion];
+  document.getElementById('qNum').textContent = currentQuestion + 1;
+  const pct = ((currentQuestion + 1) / questions.length) * 100;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('questionText').textContent = q.text;
+  document.getElementById('optionAText').textContent = q.a;
+  document.getElementById('optionBText').textContent = q.b;
+  document.getElementById('backBtn').style.visibility = currentQuestion === 0 ? 'hidden' : 'visible';
+  // Re-trigger animation
+  const screen = document.getElementById('questionScreen');
+  screen.style.animation = 'none';
+  void screen.offsetWidth;
+  screen.style.animation = 'fadeIn 0.3s ease';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function answerQuestion(choice) {
+  answers[currentQuestion] = choice;
+  if (currentQuestion < questions.length - 1) {
+    currentQuestion++;
+    renderQuestion();
+  } else {
+    computeAndShowResult();
+  }
+}
+
+function goBack() {
+  if (currentQuestion > 0) {
+    currentQuestion--;
+    renderQuestion();
+  }
+}
+
+// Keyboard support: A/B keys
+document.addEventListener('keydown', (e) => {
+  if (document.getElementById('quiz').classList.contains('hidden')) return;
+  if (e.key === 'a' || e.key === 'A' || e.key === '1') answerQuestion('A');
+  if (e.key === 'b' || e.key === 'B' || e.key === '2') answerQuestion('B');
+  if (e.key === 'ArrowLeft') goBack();
+});
+
+// ===================== SCORING =====================
+function computeAndShowResult() {
+  scores = { O: 0, E: 0, M: 0 };
+  for (let i = 0; i < questions.length; i++) {
+    const role = questions[i].scores[answers[i]];
+    scores[role]++;
+  }
+  const total = scores.O + scores.E + scores.M; // should be 20
+  const pctO = Math.round((scores.O / total) * 100);
+  const pctE = Math.round((scores.E / total) * 100);
+  const pctM = Math.round((scores.M / total) * 100);
+
+  // Determine primary and secondary
+  const sorted = [['O', pctO], ['E', pctE], ['M', pctM]].sort((a, b) => b[1] - a[1]);
+  const isBalanced = (sorted[0][1] - sorted[1][1]) <= 5;
+  const primary = sorted[0][0];
+  const secondary = sorted[1][0];
+
+  // Render
+  document.getElementById('quiz').classList.add('hidden');
+  document.getElementById('result').classList.remove('hidden');
+  document.getElementById('primaryRoleName').textContent = isBalanced
+    ? `${roleNames[primary]} + ${roleNames[secondary]}`
+    : roleNames[primary];
+  document.getElementById('secondaryRoleName').textContent = isBalanced
+    ? "Balanced hybrid"
+    : roleNames[secondary];
+
+  document.getElementById('pctO').textContent = pctO + '%';
+  document.getElementById('pctE').textContent = pctE + '%';
+  document.getElementById('pctM').textContent = pctM + '%';
+
+  // Animate bars
+  setTimeout(() => {
+    document.getElementById('barO').style.width = pctO + '%';
+    document.getElementById('barE').style.width = pctE + '%';
+    document.getElementById('barM').style.width = pctM + '%';
+    if (primary !== 'O') document.getElementById('barO').classList.add('dim');
+    if (primary !== 'E') document.getElementById('barE').classList.add('dim');
+    if (primary !== 'M') document.getElementById('barM').classList.add('dim');
+  }, 100);
+
+  // Interpretation
+  const key = isBalanced ? "BALANCED" : `${primary}_${secondary}`;
+  const interp = interpretations[key] || interpretations["BALANCED"];
+  document.getElementById('interpretation').innerHTML = `
+    <h3>Your gift</h3>
+    <p>${interp.gift}</p>
+    <h3>Your dilemma</h3>
+    <p>${interp.dilemma}</p>
+    <div class="step"><strong>Your next step:</strong> ${interp.step}</div>
+  `;
+
+  // Scroll up
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  // Save result for sharing
+  window._quizResult = { primary, secondary, pctO, pctE, pctM, isBalanced };
+}
+
+function restartQuiz() {
+  document.getElementById('result').classList.add('hidden');
+  document.getElementById('intro').classList.remove('hidden');
+  // Reset bars and dim states
+  ['barO', 'barE', 'barM'].forEach(id => {
+    const el = document.getElementById(id);
+    el.style.width = '0%';
+    el.classList.remove('dim');
+  });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ===================== EMAIL CAPTURE =====================
+function captureEmail(e) {
+  e.preventDefault();
+  const email = e.target.email.value;
+  // *** TO INTEGRATE WITH YOUR EMAIL TOOL: replace this block with a POST to your endpoint.
+  // Example: fetch('https://your-api/quiz-leads', {method:'POST', body: JSON.stringify({email, result: window._quizResult})})
+  console.log('Email captured (placeholder):', email, window._quizResult);
+  document.getElementById('captureNote').innerHTML =
+    `<span style="color:var(--gold)">✓ Thanks. Your full profile is on its way to ${email}.</span>`;
+  e.target.email.disabled = true;
+  e.target.querySelector('button').disabled = true;
+  e.target.querySelector('button').textContent = 'Sent';
+}
+
+// ===================== SHARING =====================
+function shareTwitter(e) {
+  e.preventDefault();
+  const r = window._quizResult;
+  if (!r) return;
+  const role = r.isBalanced ? "balanced hybrid" : roleNames[r.primary];
+  const text = encodeURIComponent(`I just took The Creator's Quiz and I'm an ${role}. Take it and discover your creative role:`);
+  const url = encodeURIComponent(window.location.href);
+  window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank');
+}
+function shareLinkedIn(e) {
+  e.preventDefault();
+  const url = encodeURIComponent(window.location.href);
+  window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank');
+}
+function copyLink(e) {
+  e.preventDefault();
+  navigator.clipboard.writeText(window.location.href).then(() => {
+    document.getElementById('copyBtn').textContent = 'Link copied ✓';
+    setTimeout(() => { document.getElementById('copyBtn').textContent = 'Copy link'; }, 2000);
+  });
+}
+</script>
+
+</body>
+</html>
